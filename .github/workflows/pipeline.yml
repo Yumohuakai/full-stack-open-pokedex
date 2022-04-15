@@ -41,6 +41,23 @@ jobs:
           healthcheck: 'https://pokedex-fso-cicd-practice-1110.herokuapp.com/health'
           checkstring: 'Hei, ok'
           rollbackonhealthcheckfailed: true
+      - name: Test Success
+          if: ${{ success() }}
+          uses: rjstone/discord-webhook-notify@v1
+          with:
+              severity: info
+              text: A new version of Pokedex deployed
+              description: to https://pokedex-fso-cicd-practice-1110.herokuapp.com/ by yumo 😀
+              webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+      - name: Test Failure
+          if: ${{ failure() }}
+          uses: rjstone/discord-webhook-notify@v1
+          with:
+              severity: error
+              text: Build failed
+              description: commit ${{ github.event.commits.*.url }} by yumo broke the build 😓
+              webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+
   tag_release:
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-20.04
