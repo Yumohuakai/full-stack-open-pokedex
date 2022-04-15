@@ -37,6 +37,7 @@ jobs:
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: 'pokedex-fso-cicd-practice-1110' #Must be unique in Heroku
+          heroku_email: 'zunshengbajian@gmail.com'
           healthcheck: 'https://pokedex-fso-cicd-practice-1110.herokuapp.com/health'
           checkstring: 'Hei, ok'
           rollbackonhealthcheckfailed: true
@@ -46,7 +47,7 @@ jobs:
         with:
           severity: info
           text: A new version of Pokedex deployed
-          description: to https://pokedex-fso-cicd-practice-1110.herokuapp.com/ by yumo 😀
+          description: to https://pokedex-fso-cicd-practice-1110.herokuapp.com/ by yumo :)
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
       - name: Test Failure
         if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ', '), '#skip') && failure() }}
@@ -54,7 +55,7 @@ jobs:
         with:
           severity: error
           text: Build failed
-          description: commit ${{ github.event.commits.*.url }} by yumo broke the build 😓
+          description: commit ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }} by yumo broke the build :(
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
 
   tag_release:
