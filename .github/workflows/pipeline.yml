@@ -20,18 +20,15 @@ jobs:
         uses: rjstone/discord-webhook-notify@v1
         with:
           severity: info
-          text: Health check succeeded
-          description: https://pokedex-fso-cicd-practice-1110.herokuapp.com/ passed health check
+          description: The scheduled health check passed
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
       - name: Test Failure
         if: ${{ failure() }}
         uses: rjstone/discord-webhook-notify@v1
         with:
           severity: error
-          text: Health check failed
-          description: https://pokedex-fso-cicd-practice-1110.herokuapp.com/ did not pass health check
+          description: The scheduled health check did not pass
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-
 
 # name: Deployment pipeline
 
@@ -77,7 +74,7 @@ jobs:
 #           checkstring: 'Hei, ok'
 #           rollbackonhealthcheckfailed: true
 #       - name: Test Success
-#         if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ', '), '#skip') && success() }}
+#         if: ${{ success() }}
 #         uses: rjstone/discord-webhook-notify@v1
 #         with:
 #           severity: info
@@ -85,7 +82,7 @@ jobs:
 #           description: to https://pokedex-fso-cicd-practice-1110.herokuapp.com/ by yumo :)
 #           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
 #       - name: Test Failure
-#         if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ', '), '#skip') && failure() }}
+#         if: ${{ failure() }}
 #         uses: rjstone/discord-webhook-notify@v1
 #         with:
 #           severity: error
