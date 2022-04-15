@@ -55,7 +55,7 @@ jobs:
         with:
           severity: warn
           text: Build cancelled
-          description:commit ${{ github.event.commits.*.url }} by yumo was cancelled
+          description: commit ${{ github.event.commits.*.url }} by yumo was cancelled
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
       - name: Test Failure
         if: ${{ failure() }}
