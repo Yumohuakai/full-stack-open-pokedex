@@ -3,7 +3,9 @@ name: Periodic health check
 on:
   schedule:
     # * is a special character in YAML so you have to quote this string
-    - cron:  '0 10 * * *'
+    # Due to I use Helsinki time zone (UTC +3), 
+    # so if I want to do the schedule testing at 11am/day, I need to reduce 3 hours
+    - cron:  '0 8 * * *'  # minute(0-59) hour(0-23) date(1-31) month(1-12) weekday(0-6)
     
 jobs:
   health_check:
